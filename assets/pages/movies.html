@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/Moviestack_favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Moviestack | Movies - Federico Val</title>
+</head>
+<body class="bg-gray-800 font-geistul">
+    <header class="flex flex-col justify-center items-center gap-3 pb-2 border-2 border-gray-400 text-white pt-2 md:flex-row md:justify-between md:gap-0 lg:justify-between bg-gray-700 rounded-3xl">
+        <div class="flex justify-center items-center w-full md:w-1/3 ">
+            <picture class="w-20">
+                <img class="object-cover"  src="../img/Moviestack_isotipo.png" alt="Logo">
+            </picture>
+            <a href="../../index.html"><h1>MOVIESTACK</h1></a>
+        </div>
+        <nav class="md:w-1/3 lg:w-1/4 md:mr-2 lg:mr-0">
+            <ul class="flex w-full gap-12">
+                <li><a href="../../index.html">HOME</a></li>
+                <li><a class="border border-white p-1 bg-gray-900 rounded-xl" href="#">MOVIES</a></li>
+                <li><a href="./favs.html">FAVS</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="flex grow min-h-screen flex-col bg-gray-800 text-white gap-4">
+        <h2 class="m-2 mt-4 p-3 text-3xl text-center font-bold border border-gray-400 bg-black rounded-3xl ">MOVIES</h2>
+        <div class="flex flex-col md:flex-row justify-center gap-6 text-black items-center">
+            <div class="flex flex-col gap-2">
+                <select name="genres" id="selectgenres" class="rounded-3xl p-2">
+                    <option value="" selected disabled>Select genre</option>
+                </select>
+                <input class="rounded-full bg-blue-500 text-lg text-white" id="clear" type="button" value="Clear filter">
+            </div>
+            <input class="rounded-3xl pl-4 p-5 w-3/4" type="text" name="" id="searchInput" placeholder="Search by name">
+            
+        </div>
+        <div id="divMovies" class="md:flex md:w-full md:flex-wrap md:justify-center lg:grid lg:grid-cols-4 lg:gap-4 p-4">
+            
+        </div>
+    </main>
+    <footer class="flex justify-center items-center border-2 border-gray-400 bg-gray-700 text-white rounded-3xl">
+        <p>Federico Val - Cohort N52</p>
+    </footer>
+    <script src="../js/tailwind.config.js"></script>
+    <script type="module" src="../js/movies.js"></script>
+</body>
+</html>
