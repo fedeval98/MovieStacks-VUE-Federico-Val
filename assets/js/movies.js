@@ -1,52 +1,57 @@
-//Captura de elementos del HTML
-const selectGenres = document.getElementById("selectgenres")
-const moviesContenedor = document.getElementById("divMovies")
-const searchInput = document.getElementById("searchInput")
-const buttonClear = document.getElementById("clear")
-
-//Importando las variables para ejecutar la funcion
-import {
-  introducirCard, 
-  crearOptions, 
-  crearElementosDelCard,
-  destructureMovies,
-  genresList,
-  manejarCambioSelect,
-  sortArray,
-
-}from '../js/module/functions.js'
-//Ejecucion de la funcion para darle valores por argumento a las cards y que las cree
-
 //Key de la API por headers
 const requestOptions = {
   headers:{
     "x-api-key": '0ff70d54-dc0b-4262-9c3d-776cb0f34dbd'
   }
 }
-let moviesData = {}
-fetch ("https://moviestack.onrender.com/api/movies", requestOptions)
-  .then(response => response.json())
-  .then (data => {
-    moviesData = data
-    const movie = moviesData.movies
+const {createApp} = Vue
 
-    const movies = sortArray(movie)
+const options = {
+  data (){
+    return{
+      movies: [],
+      genres: [],
+      search: "",
+      select: "none",
+      movieFilter:[],
+    } //aca termina el return del data
+  }, //aca termina el data
 
-    introducirCard(movies, moviesContenedor, crearElementosDelCard)
+  beforeCreate(){
+    fetch ("https://moviestack.onrender.com/api/movies", requestOptions)
+      .then(response => response.json())
+      .then (data => { 
+        this.movies = data.movies
+        this.movieFilter = this.movies
+        this.genres = [...new Set(this.movies.map(movie => movie.genres).flat())]
+      }) 
+      .catch(error => console.log(`Error:${error}`))
+  }, //aca termina el beforeCreate
 
-    const listOfGenres = genresList(destructureMovies(movies))
-    crearOptions(listOfGenres, selectGenres)
+  methods:{
+    saveSearch(event){
+      this.search = event.target.value
+      this.filter()
+    },// aca termina el input
 
-    selectGenres.addEventListener('change', () => {
-      manejarCambioSelect(movies, selectGenres, searchInput, moviesContenedor)
-    })
-    searchInput.addEventListener('keyup', () => {
-        manejarCambioSelect(movies, selectGenres, searchInput, moviesContenedor)
-      })
-    buttonClear.addEventListener('click',()=>{
-      selectGenres.value = ""
-      searchInput.value = ""
-      manejarCambioSelect(movies, selectGenres, searchInput, moviesContenedor)
-    })
-  })
-  .catch (error => console.log ("error:",error))
+    saveSelect(event){
+      this.select = event.target.value
+      this.filter()
+    },// aca termina el select
+
+    filter(){
+      this.movieFilter = this.movies.filter (movie => movie.title.toLowerCase().includes(this.search.toLowerCase()) && (this.select === 'none' || movie.genres.includes(this.select)))
+      console.log(this.movieFilter)
+    }, //aca termina el filter
+    clearFilter(){
+      this.movieFilter = this.movies
+      this.search = ""
+      this.select = "none"
+      this.$forceUpdate()
+    },
+  }
+
+
+} //aca termina el options
+const app = createApp(options)
+app.mount ('#app')
