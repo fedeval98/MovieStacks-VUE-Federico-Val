@@ -47,9 +47,12 @@
                     <p class="mb-3 line-clamp-5 md:line-clamp-3 lg:line-clamp-2">{{movie.overview}}</p>
                     <a v-bind:href='"./details.html?id="+movie.id' id="anchor" class="text-blue-400 cursor-pointer border w-1/3 text-center bg-black rounded-xl self-end">View more</a>
                     <picture class="w-[45px] absolute m-0 cursor-pointer picture">
-                        <img src="../img/like.png" class="w-full picture">
+                        <img :ref="'img_'+ movie.id" v-bind:src="getFavImg(movie)" class="w-full" v-on:click="changeFavImg(movie)">
                     </picture>
                 </article>
+            </template>
+            <template v-else>
+                <h2>NO MATCH FOUND</h2>
             </template>
         </div>
     </main>

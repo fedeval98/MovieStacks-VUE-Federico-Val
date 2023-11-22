@@ -14,6 +14,7 @@ const options = {
       search: "",
       select: "none",
       movieFilter:[],
+      likes:[],
     } //aca termina el return del data
   }, //aca termina el data
 
@@ -41,16 +42,36 @@ const options = {
 
     filter(){
       this.movieFilter = this.movies.filter (movie => movie.title.toLowerCase().includes(this.search.toLowerCase()) && (this.select === 'none' || movie.genres.includes(this.select)))
-      console.log(this.movieFilter)
     }, //aca termina el filter
-    clearFilter(){
-      this.movieFilter = this.movies
-      this.search = ""
-      this.select = "none"
-      this.$forceUpdate()
-    },
-  }
+    
+    getFavImg(movie){
+      let localStorageMovie = JSON.parse(localStorage.getItem('likes')) || []
+      const movieLiked = localStorageMovie.some( item => item.id === movie.id)
+      return movieLiked ? '../img/like_fill.png' 
+                        : '../img/like.png'
+    }, //aca termina getFavImg
 
+    changeFavImg(movie){
+      let localStorageMovie = JSON.parse(localStorage.getItem('likes')) || []
+      const movieLiked = localStorageMovie.some( item => item.id === movie.id)
+      const imgRef = this.$refs['img_'+movie.id]
+      console.log(imgRef)
+      if(!movieLiked){
+      localStorageMovie.push({id: movie.id})
+      imgRef.src = '../img/like_fill.png'
+      this.$forceUpdate()
+      } else {
+        if (movieLiked){
+          localStorageMovie = localStorageMovie.filter(item => item.id !== movie.id)
+          imgRef.src = '../img/like.png'
+          this.$forceUpdate()
+        }
+      }
+      localStorage.setItem('likes', JSON.stringify(localStorageMovie))
+      
+    }, //aca termina el changeFavImg
+
+}, // aca termina el methods
 
 } //aca termina el options
 const app = createApp(options)
