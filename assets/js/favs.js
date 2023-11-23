@@ -64,7 +64,6 @@ const options = {
         if (movieLiked){
         localStorageMovie = localStorageMovie.filter(item => item.id !== movie.id)
         imgRef.src = '../img/like.png'
-        this.$forceUpdate()
         }
       localStorage.setItem('likes', JSON.stringify(localStorageMovie))
       this.favMovies = JSON.parse(localStorage.getItem('likes'))

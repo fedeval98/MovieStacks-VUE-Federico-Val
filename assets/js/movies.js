@@ -72,7 +72,22 @@ const options = {
     }, //aca termina el changeFavImg
 
 }, // aca termina el methods
-
+  update(){
+    let localStorageMovie = JSON.parse(localStorage.getItem('likes')) || []
+      const movieLiked = localStorageMovie.some( item => item.id === movie.id)
+      const imgRef = this.$refs['img_'+movie.id]
+      console.log(imgRef)
+      if(!movieLiked){
+      localStorageMovie.push({id: movie.id})
+      imgRef.src = '../img/like_fill.png'
+      } else {
+        if (movieLiked){
+          localStorageMovie = localStorageMovie.filter(item => item.id !== movie.id)
+          imgRef.src = '../img/like.png'
+        }
+      }
+      localStorage.setItem('likes', JSON.stringify(localStorageMovie))
+  }
 } //aca termina el options
 const app = createApp(options)
 app.mount ('#app')
