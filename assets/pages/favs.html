@@ -48,7 +48,7 @@
                 class="md:flex md:w-full md:flex-wrap md:justify-center lg:grid lg:grid-cols-4 lg:gap-4 p-4">
 
                 <template v-if="favFiltered.length > 0" v-for="fav in favFiltered">
-                    <article data-id="{{fav.id}}"
+                    <article v-bind:data-id="fav.id"
                         class="bg-gray-900 border-2 border-dashed border-gray-400 rounded-2xl p-4 m-2 flex flex-col md:w-1/3 md:flex-wrap lg:w-auto lg:ml-auto lg:mr-auto justify-between">
                         <img v-bind:src="'https://moviestack.onrender.com/static/'+ fav.image" v-bind:alt="fav.title"
                             class="mb-3">

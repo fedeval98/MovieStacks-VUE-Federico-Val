@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <main class=" min-h-screen">
+    <div id="banner w-screen h-screen absolute bg-gray-700/90">
+      <img class="object-cover" id="bannerImage" src="https://moviestack.onrender.com/static/y5szbv8zju.jpg"
+        alt="Banner Image">
+      <p id="bannerText">The Nun II</p>
+    </div>
+    <div class="flex   content-center justify-center items-center">
+
+      <template v-if="movie !==''">
+        <article
+          class="flex flex-col place-content-around bg-white text-black  items-center border solid border-white justify-items-center h-[40%] w-[70%] border-solid-5 p-5 rounded-lg hover:bg-black hover:text-white ">
+
+          <div class=" flex flex-wrap items-center align-middle  justify-around  w-[100%] h-[50%] p-5 ">
+
+            <img class="bg-black h-[16rem] w-[25rem] object-contain  rounded-lg "
+              v-bind:src="'https://moviestack.onrender.com/static/'+ movie.image + '.jpg'" v-bind:alt="movie.title">
+            <div class="flex flex-col  justify-around w-[20rem] ">
+              <h2 class="font-extrabold ">{{movie.title}} </h2>
+              <h3 class="font-semibold w-[50%] ">{{movie.tagline}}</h3>
+              <p class="font-medium w-[100%] ">{{movie.overview}}</p>
+            </div>
+
+          </div>
+        </article>
+      </template>
+    </div>
+    <script src="../js/tailwind.config.js"></script>
+
+</body>
+
+</html>
